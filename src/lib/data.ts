@@ -1,6 +1,6 @@
-import MemoSearchIcon from "/src/icons/SearchIcon";
-import { MemoShoppingCartIcon } from "/src/icons/ShoppingCartIcon";
-import { MemoUserIcon } from "/src/icons/UserIcon";
+import search from "../assets/icons/search.svg";
+import shoppingCart from "../assets/icons/shoppingCart.svg";
+import user from "../assets/icons/user.svg";
 
 import product1 from "../assets/images/product1.svg";
 import product2 from "../assets/images/product2.svg";
@@ -15,6 +15,7 @@ import product10 from "../assets/images/product10.svg";
 import product11 from "../assets/images/product11.svg";
 import product12 from "../assets/images/product12.svg";
 
+// NavLinks Array
 export const NavLinks = [
   {
     title: "Home",
@@ -22,33 +23,35 @@ export const NavLinks = [
   },
   {
     title: "Products",
-    path: "/",
+    path: "/products",
   },
   {
     title: "About",
-    path: "/",
+    path: "/about",
   },
   {
     title: "Contact",
-    path: "/",
+    path: "/contact",
   },
 ];
 
-export const NavICon = [
+// NavIcon Array
+export const NavIcon = [
   {
     title: "search",
-    icon: MemoSearchIcon,
+    icon: search,
   },
   {
     title: "cart",
-    icon: MemoShoppingCartIcon,
+    icon: shoppingCart,
   },
   {
     title: "profile",
-    icon: MemoUserIcon,
+    icon: user,
   },
 ];
 
+// Products Array
 export const products = [
   {
     id: 1,

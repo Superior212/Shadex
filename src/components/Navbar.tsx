@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import MemoLogo from "@/icons/Logo";
-import { NavICon, NavLinks } from "@/lib/data";
+import { NavIcon, NavLinks } from "@/lib/data";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,9 +20,9 @@ const NavBar = () => {
           <MemoLogo className="w-20 h-16" />
         </Link>
         <div className="flex items-center">
-          {NavICon.slice(0, 2).map((icon, index) => (
+          {NavIcon.slice(0, 2).map((icon, index) => (
             <Button key={index} className="hover:bg-transparent bg-transparent">
-              <icon.icon className="h-6 w-6 text-black" />
+              <img src={icon.icon} className="h-6 w-6 text-black" />
             </Button>
           ))}
           <Menu
@@ -45,9 +45,9 @@ const NavBar = () => {
           ))}
         </div>
         <div className="flex gap-x-8">
-          {NavICon.map((icon, index) => (
+          {NavIcon.map((icon, index) => (
             <Button key={index} className="hover:bg-transparent bg-transparent">
-              <icon.icon className="h-6 w-6" />
+              <img src={icon.icon} className="h-6 w-6" />
             </Button>
           ))}
         </div>
@@ -65,11 +65,11 @@ const NavBar = () => {
               ))}
 
               <div className="flex gap-x-12">
-                {NavICon.map((icon, index) => (
+                {NavIcon.map((icon, index) => (
                   <Button
                     key={index}
                     className="hover:bg-transparent bg-transparent">
-                    <icon.icon className="h-6 w-6" />
+                    <img src={icon.icon} className="h-6 w-6" />
                   </Button>
                 ))}
               </div>
