@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import MemoLogo from "@/icons/Logo";
 import { NavIcon, NavLinks } from "@/lib/data";
 
@@ -39,9 +39,16 @@ const NavBar = () => {
         </Link>
         <div>
           {NavLinks.map((link, index) => (
-            <Link key={index} className="text-black mx-6" to={link.path}>
+            <NavLink
+              key={index}
+              className={({ isActive }) =>
+                isActive
+                  ? "text-[#00A181] underline mx-6"
+                  : "text-[#3A3A3A] mx-6"
+              }
+              to={link.path}>
               {link.title}
-            </Link>
+            </NavLink>
           ))}
         </div>
         <div className="flex gap-x-8">
