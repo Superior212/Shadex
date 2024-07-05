@@ -76,7 +76,7 @@ export default function ProductCatalog() {
               alt={product.title}
               className="w-full sm:h-80 object-cover"
             />
-            <div className="p-4">
+            <div className="p-4 h-48">
               <h3 className="sm:text-xl text-[#3A3A3A] text-center lato font-[400]">
                 {product.title}
               </h3>
