@@ -1,16 +1,26 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { products as initialProducts } from "@/lib/data"; // Importing initial products
+import { products as initialProducts } from "@/lib/data";
 import { HeartIcon } from "lucide-react";
 import MemoStarFilled from "@/icons/StarFilled";
 import MemoStar from "@/icons/Star";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "./ui/select";
 import MemoFilter from "@/icons/Filter";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 export default function ProductCatalog() {
-  const [products, setProducts] = useState(initialProducts); // State for products
-
+  const [products, setProducts] = useState(initialProducts);
   const [sortBy, setSortBy] = useState("featured");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
 
   const handleFavorite = (id: number) => {
     setProducts(
@@ -36,6 +46,18 @@ export default function ProductCatalog() {
         return products;
     }
   }, [products, sortBy]);
+
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return sortedProducts.slice(startIndex, endIndex);
+  }, [sortedProducts, currentPage, itemsPerPage]);
+
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="hsection container mx-auto px-4 py-8">
@@ -69,7 +91,7 @@ export default function ProductCatalog() {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-        {sortedProducts.map((product) => (
+        {paginatedProducts.map((product) => (
           <div key={product.id} className=" overflow-hidden ">
             <img
               src={product.image}
@@ -112,6 +134,40 @@ export default function ProductCatalog() {
             </div>
           </div>
         ))}
+      </div>
+      <div className="mt-8 flex justify-center">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href="#"
+                onClick={() => handlePageChange(currentPage - 1)}
+              />
+            </PaginationItem>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink
+                  href="#"
+                  onClick={() => handlePageChange(index + 1)}
+                  isActive={currentPage === index + 1}>
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            {totalPages > 5 && currentPage < totalPages - 2 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                onClick={() => handlePageChange(currentPage + 1)}
+                isActive={currentPage === totalPages}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   );
