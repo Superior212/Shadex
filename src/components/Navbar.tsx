@@ -15,7 +15,7 @@ const NavBar = () => {
   return (
     <div>
       {/* Mobile */}
-      <nav className="md:hidden bg-white p-2 flex items-center justify-between py-4 px-2 w-full md:rounded-bl-[50px] md:rounded-br-[50px]">
+      <nav className="md:hidden bg-white p-2 flex items-center justify-between py-4 px-2 w-full fixed">
         <Link className="text-white font-bold" to="/">
           <MemoLogo className="w-20 h-16" />
         </Link>
@@ -33,7 +33,7 @@ const NavBar = () => {
       </nav>
 
       {/* Desktop */}
-      <nav className="hidden md:flex bg-white mx-auto p-2 items-center justify-between sm:shadow-md py-0 px-[3rem] w-full">
+      <nav className="hidden md:flex bg-white mx-auto p-2 items-center justify-between sm:shadow-md py-0 px-[3rem] w-full fixed z-10">
         <Link className="text-white font-bold" to="/">
           <MemoLogo className="md:w-28 md:h-28" />
         </Link>
