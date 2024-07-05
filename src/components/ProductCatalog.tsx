@@ -70,14 +70,14 @@ export default function ProductCatalog() {
       </div>
       <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
         {sortedProducts.map((product) => (
-          <div key={product.id} className="rounded-lg overflow-hidden ">
+          <div key={product.id} className=" overflow-hidden ">
             <img
               src={product.image}
               alt={product.title}
-              className="w-full h-80 object-cover"
+              className="w-full sm:h-80 object-cover"
             />
             <div className="p-4">
-              <h3 className="text-xl text-[#3A3A3A] text-center lato font-[400]">
+              <h3 className="sm:text-xl text-[#3A3A3A] text-center lato font-[400]">
                 {product.title}
               </h3>
               <div className="flex justify-center items-center gap-0.5 my-2">
@@ -87,22 +87,22 @@ export default function ProductCatalog() {
                 <MemoStarFilled className="w-5 h-5 " />
                 <MemoStar className="w-5 h-5 fill-muted stroke-muted-foreground" />
               </div>
-              <p className="text-[#3A3A3A] text-2xl lato text-center font-[700]">
+              <p className="text-[#3A3A3A] sm:text-2xl lato text-center font-[700]">
                 ₦{product.price}
               </p>
-              <div className="flex items-center justify-between mt-4">
+              <div className="flex items-center justify-between gap-2 mt-4">
                 <Button
                   className="bg-transparent text-[#3A3A3A] hover:bg-transparent border border-[#3A3A3A] rounded-none"
                   size="sm">
                   Add to Cart
                 </Button>
                 <Button
-                  className="border rounded-none border-[#3A3A3A]"
+                  className="sm:border h-9 w-9 sm:w-auto sm:p-2 sm:h-auto rounded-none border-[#3A3A3A]"
                   size="icon"
                   variant="ghost"
                   onClick={() => handleFavorite(product.id)}>
                   <HeartIcon
-                    className={`w-5 h-5 ${
+                    className={`w-4 h-4 sm:w-5 sm:h-5 ${
                       product.isFavorite ? "fill-red-500" : "fill-white"
                     }`}
                   />
