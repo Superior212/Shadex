@@ -12,4 +12,8 @@ export type Product = {
 export type ShopContextType = {
   cartItems: { [key: number]: number };
   addToCart: (id: number) => void;
+  clearCart: () => void;
+  removeFromCart: (id: number) => void;
+  updateCartItemCount: (id: number, count: number) => void;
+  getTotalCartAmount: () => number;
 };

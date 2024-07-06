@@ -21,24 +21,21 @@ import { ShopContext } from "@/context/Shop-Context";
 import { Product, ShopContextType } from "@/types";
 
 export default function Component() {
-  const { cartItems } = useContext(ShopContext) as ShopContextType;
+  const {
+    cartItems,
+    clearCart,
+    addToCart,
+    removeFromCart,
+    updateCartItemCount,
+    getTotalCartAmount,
+  } = useContext(ShopContext) as ShopContextType;
   const [shippingMode, setShippingMode] = useState("standard");
-  const [cart, setCart] = useState<Product[]>(products);
+  const [cart] = useState<Product[]>(products);
 
-  const handleQuantityChange = (id: number, quantity: number) => {
-    setCart(
-      cart.map((item) => (item.id === id ? { ...item, quantity } : item))
-    );
+  const handleClearCart = () => {
+    clearCart();
   };
-
-  const handleRemoveItem = (id: number) => {
-    setCart(cart.filter((item) => item.id !== id));
-  };
-
-  const totalPrice = cart.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const totalPrice = getTotalCartAmount();
 
   return (
     <section className="w-full py-12">
@@ -91,33 +88,35 @@ export default function Component() {
                           <Button
                             variant="outline"
                             size="icon"
-                            onClick={() =>
-                              handleQuantityChange(
-                                item.id,
-                                Math.max(item.quantity - 1, 1)
-                              )
-                            }>
+                            onClick={() => removeFromCart(item.id)}>
                             <MinusIcon className="h-4 w-4" />
                           </Button>
-                          <span>{item.quantity}</span>
+                          <input
+                            className="w-12 text-center border-none  outline-none bg-inherit"
+                            value={cartItems[item.id]}
+                            onChange={(e) =>
+                              updateCartItemCount(
+                                Number(e.target.value),
+                                item.id
+                              )
+                            }
+                          />
                           <Button
                             variant="outline"
                             size="icon"
-                            onClick={() =>
-                              handleQuantityChange(item.id, item.quantity + 1)
-                            }>
+                            onClick={() => addToCart(item.id)}>
                             <PlusIcon className="h-4 w-4" />
                           </Button>
                         </div>
                       </TableCell>
                       <TableCell>
-                        ${(item.price * item.quantity).toFixed(2)}
+                        ${(item.price * cartItems[item.id]).toFixed(2)}
                       </TableCell>
                       <TableCell>
                         <Button
                           variant="outline"
                           size="icon"
-                          onClick={() => handleRemoveItem(item.id)}>
+                          onClick={handleClearCart}>
                           <TrashIcon className="h-4 w-4" />
                         </Button>
                       </TableCell>
@@ -158,16 +157,20 @@ export default function Component() {
               <div className="grid gap-4">
                 <div className="flex items-center gap-2 justify-between">
                   <p className="font-medium">Sub total</p>{" "}
-                  <span>₦{totalPrice.toFixed(2)}</span>
+                  <span>₦{totalPrice}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="font-medium">Shipping</span>
-                  <span>-</span>
+                  <span className="text-sm mx-4">
+                    {shippingMode === "standard"
+                      ? "Door Step..."
+                      : "Store Pick..."}
+                  </span>
                 </div>
                 <Separator />
                 <div className="flex items-center justify-between">
                   <span className="font-medium">Total</span>
-                  <span>₦{totalPrice.toFixed(2)}</span>
+                  <span>₦{totalPrice}</span>
                 </div>
               </div>
             </main>
