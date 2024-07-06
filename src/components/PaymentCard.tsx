@@ -25,6 +25,7 @@ import MemoVisaCard from "@/icons/VisaCard";
 import { Badge } from "./ui/badge";
 import MemoDeleteIcon from "@/icons/DeleteIcon";
 import MemoMoney from "@/icons/Money";
+import AddNewCardDialog from "./AddNewCardDialog";
 
 const PaymentCard = () => {
   return (
@@ -139,9 +140,11 @@ const PaymentCard = () => {
                           <Button className="border rounded-none bg-transparent hover:bg-transparent border-[#3A3A3A] text-[#3A3A3A]">
                             Select this Card
                           </Button>
-                          <Button className="border rounded-none bg-transparent hover:bg-transparent border-[#3A3A3A] text-[#3A3A3A]">
-                            Add New Card
-                          </Button>
+                          <AddNewCardDialog>
+                            <Button className="border rounded-none bg-transparent hover:bg-transparent border-[#3A3A3A] text-[#3A3A3A]">
+                              Add New Card
+                            </Button>
+                          </AddNewCardDialog>
                         </div>
                       </div>
                     </div>
