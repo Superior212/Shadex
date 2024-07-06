@@ -75,7 +75,7 @@ const AddNewCardDialog = ({ children }: { children: ReactNode }) => {
               <CardTitle className="garamond">Card</CardTitle>
               <MemoVisaCard className="h-16 w-16" />
             </div>
-            <form>
+            <div>
               <div className="mb-4">
                 <label
                   className="block text-[#3A3A3A] lato text-sm font-[400] mb-2"
@@ -144,7 +144,7 @@ const AddNewCardDialog = ({ children }: { children: ReactNode }) => {
                 <MemoPlus className="w-4 h-4" />
                 Add New Card
               </Button>
-            </form>
+            </div>
           </Card>
         </div>
       </DialogContent>
