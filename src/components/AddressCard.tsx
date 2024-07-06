@@ -12,10 +12,10 @@ import {
 
 import MemoLogo from "@/icons/Logo";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import MemoPlus from "@/icons/Plus";
-
 import { Badge } from "./ui/badge";
 import MemoDeleteIcon from "@/icons/DeleteIcon";
+import AddNewAddressDialog from "./AddNewAddressDialog";
+
 const AddressCard = () => {
   return (
     <div>
@@ -37,15 +37,12 @@ const AddressCard = () => {
                   2464 Royal Ln. Mesa, New Jersey 45463
                 </p>
               </div>
-
               <p className="lato font-[400]">₦ 2,000</p>
             </div>
             <span className="lato font-[400]">(308) 555-0121</span>
           </main>
         </CardContent>
-        <CardFooter
-          className="flex
-             gap-2">
+        <CardFooter className="flex gap-2">
           <Dialog>
             <DialogTrigger asChild>
               <Button className="bg-transparent gap-2 rounded-none hover:bg-transparent text-[#3A3A3A] border border-[#3A3A3A]">
@@ -53,20 +50,19 @@ const AddressCard = () => {
                 <MemoEditIcon className="w-4 h-4" />
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[825px]">
+            <DialogContent className="max-w-[390px] sm:max-w-[825px]">
               <DialogHeader>
                 <main className="sm:flex items-center justify-between">
                   <div className="flex justify-center sm:justify-start">
                     <MemoLogo className="md:w-28 w-20 h-20 md:h-28" />
                   </div>
-                  <div className="flex  items-center justify-between ">
-                    <div className="w-full max-w-[22rem]   sm:max-w-md relative space-x-10 sm:space-x-20 flex justify-between items-center">
-                      <div className="sm:w-[67%] w-[73%] h-[2px] absolute sm:left-28 left-16  z-10 top-[0.3rem] bg-black" />
+                  <div className="flex items-center justify-between">
+                    <div className="w-full max-w-[22rem] sm:max-w-md relative space-x-10 sm:space-x-20 flex justify-between items-center">
+                      <div className="sm:w-[67%] w-[73%] h-[2px] absolute sm:left-28 left-16 z-10 top-[0.3rem] bg-black" />
                       <div className="flex flex-col items-center z-10">
                         <div className="flex items-center">
                           <div className="h-3 w-3 rounded-full bg-[#00A181]" />
                         </div>
-
                         <div className="text-sm font-medium text-[#3A3A3A] my-6">
                           Shipping
                         </div>
@@ -92,26 +88,21 @@ const AddressCard = () => {
                 </main>
                 <Separator />
                 <DialogTitle className="my-7 flex sm:flex-row flex-col items-center justify-between">
-                  <h1 className="garamond text-[#00A181]   text-2xl">
+                  <h1 className="garamond text-[#00A181] text-2xl">
                     Choose Shipping Address
                   </h1>
-
-                  <Button className="bg-transparent hover:bg-transparent border rounded-none  lato font-[400] my-3 sm:my-0 text-sm text-[#3A3A3A]">
-                    <MemoPlus className="w-4 h-4" />
-                    Add New Address
-                  </Button>
+                  <AddNewAddressDialog />
                 </DialogTitle>
               </DialogHeader>
-              <main className="flex  flex-col sm:flex-row items-center justify-between">
+              <main className="flex flex-col sm:flex-row items-center justify-between">
                 <Card className="w-full max-w-sm p-6 border-none flex flex-col gap-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div />
                       <div>
                         <RadioGroup defaultValue="">
                           <div className="flex items-center space-x-2">
                             <RadioGroupItem value="" id="" />
-                            <Badge className=" bg-[#DFF4F0] text-[#3A3A3A] hover:bg-[#DFF4F0]">
+                            <Badge className="bg-[#DFF4F0] text-[#3A3A3A] hover:bg-[#DFF4F0]">
                               Default
                             </Badge>
                           </div>
@@ -153,12 +144,10 @@ const AddressCard = () => {
                 <Card className="w-full max-w-sm p-6 border-none flex flex-col gap-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div />
                       <div>
                         <RadioGroup defaultValue="hhhh">
                           <div className="flex items-center space-x-2">
                             <RadioGroupItem value="www" id="ww" />
-                            {/* <Badge className=" bg-[#DFF4F0] text-[#3A3A3A] hover:bg-[#DFF4F0]"></Badge> */}
                           </div>
                         </RadioGroup>
                       </div>
