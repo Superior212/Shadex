@@ -13,21 +13,16 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
-import { Card, CardContent, CardFooter } from "./ui/card";
-import { Separator } from "./ui/separator";
+import { Card, CardContent } from "./ui/card";
 import { products } from "@/lib/data";
+import AddressCard from "./Address";
+import PaymentCard from "./PaymentCard";
+import ShippingCard from "./ShippingCard";
 
 export default function Review() {
-  const {
-    cartItems,
-    addToCart,
-    removeFromCart,
-    updateCartItemCount,
-    getTotalCartAmount,
-    shippingMode,
-  } = useContext(ShopContext) as ShopContextType;
+  const { cartItems, addToCart, removeFromCart, updateCartItemCount } =
+    useContext(ShopContext) as ShopContextType;
   const [cart] = useState<Product[]>(products);
-  const totalPrice = getTotalCartAmount();
 
   return (
     <section className="w-full py-12">
@@ -171,25 +166,9 @@ export default function Review() {
             })}
           </div>
 
-          <Card className="bg-[#EEFFFC]">
-            <CardContent>
-              <Separator />
-              <div className="mt-4">
-                <h2 className="text-xl font-bold mb-4">Shipping Details</h2>
-                <p>Shipping Mode: {shippingMode}</p>
-              </div>
-              <Separator />
-              <div className="mt-4 flex justify-between">
-                <h2 className="text-xl font-bold">Total</h2>
-                <p className="font-bold">₦{totalPrice}</p>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-end gap-2">
-              <Button className="bg-transparent hover:bg-transparent text-[#3A3A3A] border border-[#3A3A3A]">
-                Proceed to Checkout
-              </Button>
-            </CardFooter>
-          </Card>
+          <AddressCard />
+          <PaymentCard />
+          <ShippingCard />
         </div>
       </div>
     </section>
