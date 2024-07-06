@@ -1,5 +1,6 @@
+import React, { createContext, useState } from "react";
 import { products } from "@/lib/data";
-import { createContext, useState } from "react";
+import { ShopContextType } from "@/types";
 
 interface ShopContextValue {
   cartItems: { [key: number]: number };
@@ -16,14 +17,15 @@ export const ShopContext = createContext<ShopContextValue | null>(null);
 
 const getDefaultCart = () => {
   const cart: { [key: number]: number } = {};
-  for (let i = 1; i < products.length + 1; i++) {
+  for (let i = 1; i <= products.length; i++) {
     cart[i] = 0;
   }
   return cart;
 };
 
-const ShopContextProvider = (props: React.PropsWithChildren<object>) => {
+const ShopContextProvider = (props: { children: JSX.Element }) => {
   const [cartItems, setCartItems] = useState(getDefaultCart());
+  const [shippingMode, setShippingMode] = useState("standard");
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
@@ -32,7 +34,9 @@ const ShopContextProvider = (props: React.PropsWithChildren<object>) => {
         const itemInfo = products.find(
           (product) => product.id === Number(item)
         );
-        totalAmount += cartItems[item] * itemInfo!.price;
+        if (itemInfo) {
+          totalAmount += cartItems[item] * itemInfo.price;
+        }
       }
     }
     return totalAmount;
@@ -62,15 +66,17 @@ const ShopContextProvider = (props: React.PropsWithChildren<object>) => {
     setCartItems(getDefaultCart());
   };
 
-  const contextValue = {
+  const contextValue: ShopContextType = {
     cartItems,
     addToCart,
     removeFromCart,
     clearCart,
-    updateCartItemCount,
     resetCart,
+    updateCartItemCount,
     getTotalCartAmount,
     getTotalItems,
+    shippingMode,
+    setShippingMode,
   };
 
   return (

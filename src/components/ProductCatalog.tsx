@@ -15,11 +15,13 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { ShopContext } from "@/context/Shop-Context";
+import { ShopContext } from '@/context/Shop-Context';
 import { Product, ShopContextType } from "@/types";
 
 export default function ProductCatalog() {
-  const { cartItems, addToCart } = useContext(ShopContext) as ShopContextType;
+  // const { cartItems, addToCart } = useContext(ShopContext) as ShopContextType;
+  const { cartItems, addToCart } =
+    useContext(ShopContext)! as ShopContextType;
 
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [sortBy, setSortBy] = useState("featured");

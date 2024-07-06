@@ -1,27 +1,23 @@
 import { useContext, useState } from "react";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MemoBackArrow from "@/icons/BackArrow";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { Label } from "./ui/label";
-import { MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
-import MemoFrontArrow from "@/icons/FrontArrow";
-import { products } from "@/lib/data";
 import { ShopContext } from "@/context/Shop-Context";
 import { Product, ShopContextType } from "@/types";
+import { Button } from "./ui/button";
+import { MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./ui/table";
+import { Card, CardContent, CardFooter } from "./ui/card";
 import { Separator } from "./ui/separator";
+import { products } from "@/lib/data";
 
-export default function Cart() {
-  const navigate = useNavigate();
+export default function Review() {
   const {
     cartItems,
     addToCart,
@@ -29,34 +25,21 @@ export default function Cart() {
     updateCartItemCount,
     getTotalCartAmount,
     shippingMode,
-    setShippingMode,
   } = useContext(ShopContext) as ShopContextType;
-
   const [cart] = useState<Product[]>(products);
-
-  const handleRemoveItem = (id: string) => {
-    updateCartItemCount(0, Number(id));
-  };
-
   const totalPrice = getTotalCartAmount();
-
-  const handleProceedToCheckout = () => {
-    navigate("/review");
-  };
 
   return (
     <section className="w-full py-12">
       <div className="container grid gap-6 md:gap-8 px-4 md:px-6">
-        <div>
-          <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-bold tracking-tight text-[#00A181] garamond">
-              My Cart
-            </h1>
-            <Link to="/" className="flex items-center text-primary underline">
-              <MemoBackArrow className="h-4 w-4" />
-              Continue Shopping
-            </Link>
-          </div>
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold tracking-tight text-[#00A181] garamond">
+            Preview Order
+          </h1>
+          <Link to="/cart" className="flex items-center text-primary">
+            <MemoBackArrow className="h-4 w-4" />
+            Back to cart
+          </Link>
         </div>
         <div className="grid gap-6">
           {cart.filter((each) => cartItems[each.id] !== 0).length > 0 && (
@@ -87,13 +70,13 @@ export default function Cart() {
                             <div>
                               <p>{item.name}</p>
                               <span>
-                                Color: {item.color}, Material: {item.material}
+                                Color: {item.color} Material: {item.material}
                               </span>
                             </div>
                           </TableCell>
-                          <TableCell>${item.price.toFixed(2)}</TableCell>
+                          <TableCell>${item.price}</TableCell>
                           <TableCell>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 mt-2">
                               <Button
                                 variant="outline"
                                 size="icon"
@@ -119,13 +102,13 @@ export default function Cart() {
                             </div>
                           </TableCell>
                           <TableCell>
-                            ${(item.price * cartItems[item.id]).toFixed(2)}
+                            ${item.price * cartItems[item.id]}
                           </TableCell>
                           <TableCell>
                             <Button
                               variant="outline"
                               size="icon"
-                              onClick={() => handleRemoveItem(String(item.id))}>
+                              onClick={() => removeFromCart(item.id)}>
                               <TrashIcon className="h-4 w-4" />
                             </Button>
                           </TableCell>
@@ -155,18 +138,15 @@ export default function Cart() {
                         <div>
                           <p className="font-bold">{item.name}</p>
                           <span>
-                            Color: {item.color}, Material: {item.material}
+                            Colour: {item.color} // Material: {item.material}
                           </span>
                         </div>
                       </div>
                       <div className="mt-2">
-                        <p className="font-bold">₦ {item.price.toFixed(2)}</p>
+                        <p className="font-bold">₦ {item.price}</p>
                       </div>
                       <div className="flex items-center gap-2 mt-2">
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={() => removeFromCart(item.id)}>
+                        <Button variant="outline" size="icon">
                           <MinusIcon className="h-4 w-4" />
                         </Button>
                         <input
@@ -176,18 +156,12 @@ export default function Cart() {
                             updateCartItemCount(Number(e.target.value), item.id)
                           }
                         />
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={() => addToCart(item.id)}>
+                        <Button variant="outline" size="icon">
                           <PlusIcon className="h-4 w-4" />
                         </Button>
                       </div>
                       <div className="mt-2">
-                        <p>
-                          Total: ₦{" "}
-                          {(item.price * cartItems[item.id]).toFixed(2)}
-                        </p>
+                        <p>Total: ₦ {item.price * cartItems[item.id]}</p>
                       </div>
                     </CardContent>
                   </Card>
@@ -196,70 +170,26 @@ export default function Cart() {
               return null;
             })}
           </div>
-          {totalPrice > 0 ? (
-            <Card className="bg-[#EEFFFC]">
-              <CardContent className="flex items-center justify-between px-5 py-2 max-w-[80rem] mx-auto">
-                <div className="">
-                  <div className="grid gap-2">
-                    <Label className="garamond text-xl" htmlFor="shipping-mode">
-                      Choose Shipping Mode
-                    </Label>
-                    <RadioGroup
-                      id="shipping-mode"
-                      value={shippingMode}
-                      onValueChange={setShippingMode}
-                      className="gap-4">
-                      <Label
-                        htmlFor="standard"
-                        className="flex items-center gap-2 cursor-pointer">
-                        <RadioGroupItem id="standard" value="standard" />
-                        Door Step Delivery
-                      </Label>
-                      <Label
-                        htmlFor="express"
-                        className="flex items-center gap-2 cursor-pointer">
-                        <RadioGroupItem id="express" value="express" />
-                        Store Pick-up - Free
-                      </Label>
-                    </RadioGroup>
-                  </div>
-                </div>
-                <div className="grid gap-4">
-                  <div className="flex items-center gap-2 justify-between">
-                    <p className="font-medium">Subtotal</p>{" "}
-                    <span>₦{totalPrice}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">Shipping</span>
-                    <span className="text-sm mx-4">
-                      {shippingMode === "standard"
-                        ? "Door Step Delivery"
-                        : "Store Pick-up - Free"}
-                    </span>
-                  </div>
-                  <Separator />
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">Total</span>
-                    <span>₦{totalPrice}</span>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter className="flex justify-end gap-2">
-                <Button
-                  onClick={handleProceedToCheckout}
-                  className="bg-transparent hover:bg-transparent text-[#3A3A3A] border border-[#3A3A3A]">
-                  Proceed to Checkout
-                  <MemoFrontArrow className="h-4 w-4" />
-                </Button>
-              </CardFooter>
-            </Card>
-          ) : (
-            <Card>
-              <CardContent className="flex items-center py-5 justify-center">
-                <h1 className="text-2xl garamond font-[700] ">Cart is empty</h1>
-              </CardContent>
-            </Card>
-          )}
+
+          <Card className="bg-[#EEFFFC]">
+            <CardContent>
+              <Separator />
+              <div className="mt-4">
+                <h2 className="text-xl font-bold mb-4">Shipping Details</h2>
+                <p>Shipping Mode: {shippingMode}</p>
+              </div>
+              <Separator />
+              <div className="mt-4 flex justify-between">
+                <h2 className="text-xl font-bold">Total</h2>
+                <p className="font-bold">₦{totalPrice}</p>
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-end gap-2">
+              <Button className="bg-transparent hover:bg-transparent text-[#3A3A3A] border border-[#3A3A3A]">
+                Proceed to Checkout
+              </Button>
+            </CardFooter>
+          </Card>
         </div>
       </div>
     </section>
