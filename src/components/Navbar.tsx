@@ -1,15 +1,22 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import MemoLogo from "@/icons/Logo";
 import { NavIcon, NavLinks } from "@/lib/data";
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleNavigation = (path: string | undefined) => {
+    if (path) {
+      navigate(path);
+    }
   };
 
   return (
@@ -22,7 +29,11 @@ const NavBar = () => {
         <div className="flex items-center">
           {NavIcon.slice(0, 2).map((icon, index) => (
             <Button key={index} className="hover:bg-transparent bg-transparent">
-              <img src={icon.icon} className="h-6 w-6 text-black" />
+              <img
+                src={icon.icon}
+                className="h-6 w-6 text-black"
+                onClick={() => handleNavigation(icon.path)}
+              />
             </Button>
           ))}
           <Menu
@@ -53,7 +64,10 @@ const NavBar = () => {
         </div>
         <div className="flex gap-x-8">
           {NavIcon.map((icon, index) => (
-            <Button key={index} className="hover:bg-transparent bg-transparent">
+            <Button
+              key={index}
+              className="hover:bg-transparent bg-transparent"
+              onClick={() => handleNavigation(icon.path)}>
               <img src={icon.icon} className="h-6 w-6" />
             </Button>
           ))}
@@ -75,7 +89,8 @@ const NavBar = () => {
                 {NavIcon.map((icon, index) => (
                   <Button
                     key={index}
-                    className="hover:bg-transparent bg-transparent">
+                    className="hover:bg-transparent bg-transparent"
+                    onClick={() => handleNavigation(icon.path)}>
                     <img src={icon.icon} className="h-6 w-6" />
                   </Button>
                 ))}
