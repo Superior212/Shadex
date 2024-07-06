@@ -69,7 +69,7 @@ const ShippingCard = () => {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-end gap-2">
+        <CardFooter className="flex justify-end mr-24 gap-2">
           <Button
             onClick={handleProceedToCheckout}
             className="bg-transparent hover:bg-transparent text-[#3A3A3A] border border-[#3A3A3A]">
