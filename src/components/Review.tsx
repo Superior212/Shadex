@@ -15,7 +15,7 @@ import {
 } from "./ui/table";
 import { Card, CardContent } from "./ui/card";
 import { products } from "@/lib/data";
-import AddressCard from "./Address";
+import AddressCard from "./AddressCard";
 import PaymentCard from "./PaymentCard";
 import ShippingCard from "./ShippingCard";
 
