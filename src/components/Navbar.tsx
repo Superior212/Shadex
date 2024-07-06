@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import MemoLogo from "@/icons/Logo";
 import { NavIcon, NavLinks } from "@/lib/data";
+import { ShopContext } from "@/context/Shop-Context";
+import { ShopContextType } from "@/types";
 
 const NavBar = () => {
+  const { getTotalItems } = useContext(ShopContext) as ShopContextType;
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -27,13 +30,17 @@ const NavBar = () => {
           <MemoLogo className="w-20 h-16" />
         </Link>
         <div className="flex items-center">
-          {NavIcon.slice(0, 2).map((icon, index) => (
-            <Button key={index} className="hover:bg-transparent bg-transparent">
-              <img
-                src={icon.icon}
-                className="h-6 w-6 text-black"
-                onClick={() => handleNavigation(icon.path)}
-              />
+          {NavIcon.map((icon, index) => (
+            <Button
+              key={index}
+              className="hover:bg-transparent bg-transparent"
+              onClick={() => handleNavigation(icon.path)}>
+              <img src={icon.icon} className="h-6 w-6" />
+              {icon.title === "cart" && getTotalItems() > 0 && (
+                <div className=" flex items-center justify-center absolute top-[2rem] right-[6.7rem] text-center w-4 h-4 bg-red-500 text-white rounded-[50%] p-1 text-xs">
+                  {getTotalItems()}
+                </div>
+              )}
             </Button>
           ))}
           <Menu
@@ -69,6 +76,11 @@ const NavBar = () => {
               className="hover:bg-transparent bg-transparent"
               onClick={() => handleNavigation(icon.path)}>
               <img src={icon.icon} className="h-6 w-6" />
+              {icon.title === "cart" && getTotalItems() > 0 && (
+                <div className=" flex items-center justify-center absolute top-[2.6rem] right-[9.3rem] text-center w-4 h-4 bg-red-500 text-white rounded-[50%] p-1 text-xs">
+                  {getTotalItems()}
+                </div>
+              )}
             </Button>
           ))}
         </div>
@@ -87,12 +99,18 @@ const NavBar = () => {
 
               <div className="flex gap-x-12">
                 {NavIcon.map((icon, index) => (
-                  <Button
-                    key={index}
-                    className="hover:bg-transparent bg-transparent"
-                    onClick={() => handleNavigation(icon.path)}>
-                    <img src={icon.icon} className="h-6 w-6" />
-                  </Button>
+                  <div key={index} className="relative">
+                    <Button
+                      className="hover:bg-transparent bg-transparent"
+                      onClick={() => handleNavigation(icon.path)}>
+                      <img src={icon.icon} className="h-6 w-6" />
+                      {icon.title === "cart" && getTotalItems() > 0 && (
+                        <div className=" flex items-center justify-center absolute top-1 right-3 text-center w-4 h-4 bg-red-500 text-white rounded-[50%] p-1 text-xs">
+                          {getTotalItems()}
+                        </div>
+                      )}
+                    </Button>
+                  </div>
                 ))}
               </div>
               <div

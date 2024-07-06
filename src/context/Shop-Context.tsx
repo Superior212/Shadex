@@ -9,6 +9,7 @@ interface ShopContextValue {
   resetCart: () => void;
   updateCartItemCount: (newAmount: number, itemId: number) => void;
   getTotalCartAmount: () => number | undefined;
+  getTotalItems: () => number;
 }
 
 export const ShopContext = createContext<ShopContextValue | null>(null);
@@ -35,6 +36,10 @@ const ShopContextProvider = (props: React.PropsWithChildren<object>) => {
       }
     }
     return totalAmount;
+  };
+
+  const getTotalItems = () => {
+    return Object.values(cartItems).reduce((acc, item) => acc + item, 0);
   };
 
   const addToCart = (itemId: number) => {
@@ -65,6 +70,7 @@ const ShopContextProvider = (props: React.PropsWithChildren<object>) => {
     updateCartItemCount,
     resetCart,
     getTotalCartAmount,
+    getTotalItems,
   };
 
   return (

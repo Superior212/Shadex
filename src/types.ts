@@ -16,4 +16,5 @@ export type ShopContextType = {
   removeFromCart: (id: number) => void;
   updateCartItemCount: (id: number, count: number) => void;
   getTotalCartAmount: () => number;
+  getTotalItems: () => number;
 };
