@@ -23,7 +23,6 @@ import { Product, ShopContextType } from "@/types";
 export default function Component() {
   const {
     cartItems,
-    clearCart,
     addToCart,
     removeFromCart,
     updateCartItemCount,
@@ -32,14 +31,10 @@ export default function Component() {
   const [shippingMode, setShippingMode] = useState("standard");
   const [cart] = useState<Product[]>(products);
 
-  const handleClearCart = () => {
-    clearCart();
+  const handleRemoveItem = (id: string) => {
+    updateCartItemCount(0, Number(id));
   };
   const totalPrice = getTotalCartAmount();
-  const totalItems = Object.values(cartItems).reduce(
-    (sum, item) => sum + item,
-    0
-  );
 
   return (
     <section className="w-full py-12">
@@ -56,83 +51,143 @@ export default function Component() {
           </div>
         </div>
         <div className="grid gap-6">
-          {totalItems > 0 && (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="sm:pl-32">Item(s)</TableHead>
-                  <TableHead>Price</TableHead>
-                  <TableHead>QTY</TableHead>
-                  <TableHead>Total</TableHead>
-                  <TableHead />
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {cart.map((item) => {
-                  if (cartItems[item.id] !== 0) {
-                    return (
-                      <TableRow key={item.id}>
-                        <TableCell className="flex items-center space-x-3">
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                            width={64}
-                            height={64}
-                            className="aspect-square rounded-md object-cover"
-                          />
-                          <div>
-                            <p>{item.name}</p>
-                            <span>
-                              Color: {item.color} Material: {item.material}
-                            </span>
-                          </div>
-                        </TableCell>
-                        <TableCell>${item.price.toFixed(2)}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              onClick={() => removeFromCart(item.id)}>
-                              <MinusIcon className="h-4 w-4" />
-                            </Button>
-                            <input
-                              className="w-12 text-center border-none outline-none bg-inherit"
-                              value={cartItems[item.id]}
-                              onChange={(e) =>
-                                updateCartItemCount(
-                                  Number(e.target.value),
-                                  item.id
-                                )
-                              }
+          {cart.filter((each) => cartItems[each.id] !== 0).length > 0 && (
+            <div className="hidden md:block">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="sm:pl-32">Item(s)</TableHead>
+                    <TableHead>Price</TableHead>
+                    <TableHead>QTY</TableHead>
+                    <TableHead>Total</TableHead>
+                    <TableHead />
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {cart.map((item) => {
+                    if (cartItems[item.id] !== 0) {
+                      return (
+                        <TableRow key={item.id}>
+                          <TableCell className="flex items-center space-x-3">
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              width={64}
+                              height={64}
+                              className="aspect-square rounded-md object-cover"
                             />
+                            <div>
+                              <p>{item.name}</p>
+                              <span>
+                                Color: {item.color} Material: {item.material}
+                              </span>
+                            </div>
+                          </TableCell>
+                          <TableCell>${item.price.toFixed(2)}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={() => removeFromCart(item.id)}>
+                                <MinusIcon className="h-4 w-4" />
+                              </Button>
+                              <input
+                                className="w-12 text-center border-none outline-none bg-inherit"
+                                value={cartItems[item.id]}
+                                onChange={(e) =>
+                                  updateCartItemCount(
+                                    Number(e.target.value),
+                                    item.id
+                                  )
+                                }
+                              />
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={() => addToCart(item.id)}>
+                                <PlusIcon className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            ${(item.price * cartItems[item.id]).toFixed(2)}
+                          </TableCell>
+                          <TableCell>
                             <Button
                               variant="outline"
                               size="icon"
-                              onClick={() => addToCart(item.id)}>
-                              <PlusIcon className="h-4 w-4" />
+                              onClick={() => handleRemoveItem(String(item.id))}>
+                              <TrashIcon className="h-4 w-4" />
                             </Button>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          ${(item.price * cartItems[item.id]).toFixed(2)}
-                        </TableCell>
-                        <TableCell>
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={handleClearCart}>
-                            <TrashIcon className="h-4 w-4" />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  }
-                  return null;
-                })}
-              </TableBody>
-            </Table>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    }
+                    return null;
+                  })}
+                </TableBody>
+              </Table>
+            </div>
           )}
+          <div className="block md:hidden">
+            {cart.map((item) => {
+              if (cartItems[item.id] !== 0) {
+                return (
+                  <Card key={item.id} className="mb-4">
+                    <CardContent className="flex flex-col">
+                      <div className="flex items-center space-x-3">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          width={64}
+                          height={64}
+                          className="aspect-square rounded-md object-cover"
+                        />
+                        <div>
+                          <p className="font-bold">{item.name}</p>
+                          <span>
+                            Colour: {item.color} // Material: {item.material}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="mt-2">
+                        <p className="font-bold">₦ {item.price.toFixed(2)}</p>
+                      </div>
+                      <div className="flex items-center gap-2 mt-2">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => removeFromCart(item.id)}>
+                          <MinusIcon className="h-4 w-4" />
+                        </Button>
+                        <input
+                          className="w-12 text-center border-none outline-none bg-inherit"
+                          value={cartItems[item.id]}
+                          onChange={(e) =>
+                            updateCartItemCount(Number(e.target.value), item.id)
+                          }
+                        />
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => addToCart(item.id)}>
+                          <PlusIcon className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      <div className="mt-2">
+                        <p>
+                          Total: ₦{" "}
+                          {(item.price * cartItems[item.id]).toFixed(2)}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              }
+              return null;
+            })}
+          </div>
           {totalPrice > 0 ? (
             <Card className="bg-[#EEFFFC]">
               <main className="flex items-center justify-between px-5 py-2 max-w-[80rem] mx-auto">
@@ -163,7 +218,7 @@ export default function Component() {
                 </div>
                 <div className="grid gap-4">
                   <div className="flex items-center gap-2 justify-between">
-                    <p className="font-medium">Sub total</p>
+                    <p className="font-medium">Sub total</p>{" "}
                     <span>₦{totalPrice}</span>
                   </div>
                   <div className="flex items-center justify-between">
@@ -191,7 +246,9 @@ export default function Component() {
           ) : (
             <Card>
               <CardContent className="flex items-center py-5 justify-center">
-                <h1 className="text-2xl garamond font-[700] ">Cart is empty</h1>
+                <h1 className="text-2xl garamond font-[700] ">
+                  Cart is empty{" "}
+                </h1>
               </CardContent>
             </Card>
           )}
