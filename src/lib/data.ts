@@ -1,6 +1,6 @@
-import search from "../assets/icons/search.svg";
+// import search from "../assets/icons/search.svg";
 import shoppingCart from "../assets/icons/shoppingCart.svg";
-import user from "../assets/icons/user.svg";
+// import user from "../assets/icons/user.svg";
 
 import product1 from "../assets/images/product1.svg";
 import product2 from "../assets/images/product2.svg";
@@ -18,39 +18,39 @@ import { Product } from "../types";
 
 // NavLinks Array
 export const NavLinks = [
-  {
-    title: "Home",
-    path: "/",
-  },
+  // {
+  //   title: "Home",
+  //   path: "/",
+  // },
   {
     title: "Products",
-    path: "/products",
+    path: "/",
   },
-  {
-    title: "About",
-    path: "/about",
-  },
-  {
-    title: "Contact",
-    path: "/contact",
-  },
+  // {
+  //   title: "About",
+  //   path: "/about",
+  // },
+  // {
+  //   title: "Contact",
+  //   path: "/contact",
+  // },
 ];
 
 // NavIcon Array
 export const NavIcon = [
-  {
-    title: "search",
-    icon: search,
-  },
+  // {
+  //   title: "search",
+  //   icon: search,
+  // },
   {
     title: "cart",
     icon: shoppingCart,
     path: "/cart",
   },
-  {
-    title: "profile",
-    icon: user,
-  },
+  // {
+  //   title: "profile",
+  //   icon: user,
+  // },
 ];
 
 // Products Array

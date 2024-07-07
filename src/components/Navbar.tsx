@@ -61,7 +61,7 @@ const NavBar = () => {
               key={index}
               className={({ isActive }) =>
                 isActive
-                  ? "text-[#00A181] underline mx-6"
+                  ? "text-[#00A181]  mx-6"
                   : "text-[#3A3A3A] mx-6"
               }
               to={link.path}>
