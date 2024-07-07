@@ -4,21 +4,23 @@ import { Label } from "./ui/label";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ShopContext } from "@/context/Shop-Context";
 import { ShopContextType } from "@/types";
+import CheckoutDialog from "./CheckoutDialog";
 
 const ShippingCard = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { getTotalCartAmount, shippingMode, setShippingMode } = useContext(
     ShopContext
   ) as ShopContextType;
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const totalPrice = getTotalCartAmount();
 
   const handleProceedToCheckout = () => {
-    navigate("/review");
+    setIsDialogOpen(true);
   };
 
   return (
@@ -78,6 +80,10 @@ const ShippingCard = () => {
           </Button>
         </CardFooter>
       </Card>
+      <CheckoutDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+      />
     </div>
   );
 };

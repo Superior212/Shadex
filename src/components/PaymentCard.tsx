@@ -65,7 +65,7 @@ const PaymentCard = () => {
                   </div>
                   <div className="flex  items-center justify-between ">
                     <div className="w-full max-w-[22rem]   sm:max-w-md relative space-x-10 sm:space-x-20 flex justify-between items-center">
-                      <div className="sm:w-[67%] w-[73%] h-[2px] absolute sm:left-28 left-16  z-10 top-[0.3rem] bg-black" />
+                      <div className="sm:w-[67%] w-[73%] h-[2px] absolute sm:left-28 left-16  z-10 top-[0.3rem] bg-[#E3DFDF]" />
                       <div className="flex flex-col items-center z-10">
                         <div className="flex items-center">
                           <div className="h-3 w-3 rounded-full bg-[#00A181]" />
