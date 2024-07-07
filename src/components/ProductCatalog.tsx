@@ -15,13 +15,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { ShopContext } from '@/context/Shop-Context';
+import { ShopContext } from "@/context/Shop-Context";
 import { Product, ShopContextType } from "@/types";
 
 export default function ProductCatalog() {
-  // const { cartItems, addToCart } = useContext(ShopContext) as ShopContextType;
-  const { cartItems, addToCart } =
-    useContext(ShopContext)! as ShopContextType;
+  const { cartItems, addToCart } = useContext(ShopContext) as ShopContextType;
 
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [sortBy, setSortBy] = useState("featured");
@@ -100,21 +98,23 @@ export default function ProductCatalog() {
         {paginatedProducts.map((product) => {
           const cartItemsAmount = cartItems[product.id] || 0;
           return (
-            <div key={product.id} className="overflow-hidden">
+            <div
+              key={product.id}
+              className="overflow-hidden flex flex-col h-full">
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full sm:h-80 object-cover"
+                className="w-full sm:h-48 md:h-64 lg:h-72 object-cover flex-shrink-0"
               />
-              <div className="p-4 h-48">
-                <h3 className="sm:text-xl text-[#3A3A3A] text-center lato font-[400]">
+              <div className="p-4 flex flex-col flex-grow">
+                <h3 className="sm:text-xl text-[#3A3A3A] text-center lato font-[400] flex-grow">
                   {product.name}
                 </h3>
                 <div className="flex justify-center items-center gap-0.5 my-2">
                   <MemoStarFilled className="w-5 h-5 fill-[#FFD233]" />
-                  <MemoStarFilled className="w-5 h-5 " />
-                  <MemoStarFilled className="w-5 h-5 " />
-                  <MemoStarFilled className="w-5 h-5 " />
+                  <MemoStarFilled className="w-5 h-5" />
+                  <MemoStarFilled className="w-5 h-5" />
+                  <MemoStarFilled className="w-5 h-5" />
                   <MemoStar className="w-5 h-5 fill-muted stroke-muted-foreground" />
                 </div>
                 <p className="text-[#3A3A3A] sm:text-2xl lato text-center font-[700]">

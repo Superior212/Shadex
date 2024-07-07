@@ -142,7 +142,7 @@ export default function Cart() {
             {cart.map((item) => {
               if (cartItems[item.id] !== 0) {
                 return (
-                  <Card key={item.id} className="mb-4">
+                  <Card key={item.id} className="mb-4 p-2 py-3">
                     <CardContent className="flex flex-col">
                       <div className="flex items-center space-x-3">
                         <img

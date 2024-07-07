@@ -3,7 +3,7 @@ import Products from "@/components/Products";
 
 const Home = () => {
   return (
-    <div className="pt-[6.6rem]">
+    <div className="pt-[6.1em]">
       <Hero />
       <Products />
     </div>

@@ -30,14 +30,14 @@ const NavBar = () => {
           <MemoLogo className="w-20 h-16" />
         </Link>
         <div className="flex items-center">
-          {NavIcon.map((icon, index) => (
+          {NavIcon.slice(0, 2).map((icon, index) => (
             <Button
               key={index}
               className="hover:bg-transparent bg-transparent"
               onClick={() => handleNavigation(icon.path)}>
               <img src={icon.icon} className="h-6 w-6" />
               {icon.title === "cart" && getTotalItems() > 0 && (
-                <div className=" flex items-center justify-center absolute top-[2rem] right-[6.7rem] text-center w-4 h-4 bg-red-500 text-white rounded-[50%] p-1 text-xs">
+                <div className=" flex items-center justify-center absolute top-[2rem] right-[3.2rem] text-center w-4 h-4 bg-red-500 text-white rounded-[50%] p-1 text-xs">
                   {getTotalItems()}
                 </div>
               )}
@@ -53,7 +53,7 @@ const NavBar = () => {
       {/* Desktop */}
       <nav className="hidden md:flex bg-white mx-auto p-2 items-center justify-between sm:shadow-md py-0 px-[3rem] w-full fixed z-10">
         <Link className="text-white font-bold" to="/">
-          <MemoLogo className="md:w-28 md:h-28" />
+          <MemoLogo className="md:w-28 md:h-24" />
         </Link>
         <div>
           {NavLinks.map((link, index) => (
@@ -90,14 +90,17 @@ const NavBar = () => {
       {isMenuOpen && (
         <main>
           <div className="md:hidden">
-            <div className="flex flex-col items-start space-y-5 bg-[#DFF4F0] w-full h-screen z-20 absolute top-0 left-0 pt-20">
+            <div className="flex flex-col items-start space-y-5 bg-[#DFF4F0] w-full h-[40vh] z-20 absolute top-0 left-0 pt-20">
               {NavLinks.map((link, index) => (
-                <Link key={index} className="text-black mx-6" to={link.path}>
+                <Link
+                  key={index}
+                  className="text-black mx-6 lato font-[400]"
+                  to={link.path}>
                   {link.title}
                 </Link>
               ))}
 
-              <div className="flex gap-x-12">
+              {/* <div className="flex gap-x-12">
                 {NavIcon.map((icon, index) => (
                   <div key={index} className="relative">
                     <Button
@@ -112,11 +115,11 @@ const NavBar = () => {
                     </Button>
                   </div>
                 ))}
-              </div>
+              </div> */}
               <div
                 onClick={toggleMenu}
-                className="w-10 h-10 absolute top-0 right-3 flex items-center justify-center">
-                <X className="h-8 w-8 text-black cursor-pointer" />
+                className="w-10 h-10 absolute top-0 right-3 rounded-full border-[#292D32] border flex items-center justify-center">
+                <X className="h-4 w-4 text-black cursor-pointer" />
               </div>
             </div>
           </div>
