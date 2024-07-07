@@ -1,4 +1,4 @@
-import { Button } from "./ui/button";
+// import { Button } from "./ui/button";
 import heroImg from "../assets/images/heroImg.svg";
 
 export default function Hero() {
@@ -13,11 +13,11 @@ export default function Hero() {
             Discover the perfect pair with us! We have an amazing collection for
             this summer.
           </p>
-          <div className="flex flex-col min-[150px]:flex-row  sm:min-[400px]:flex-row">
+          {/* <div className="flex flex-col min-[150px]:flex-row  sm:min-[400px]:flex-row">
             <Button className="inline-flex lato h-10 items-center justify-center rounded-none bg-transparent sm:px-8 text-sm font-medium text-black border-2 border-[#3A3A3A] hover:bg-transparent">
               Check Out Collection
             </Button>
-          </div>
+          </div> */}
         </div>
         <div className="flex-1 flex justify-end">
           <img
