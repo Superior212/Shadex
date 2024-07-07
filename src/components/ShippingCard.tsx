@@ -26,9 +26,9 @@ const ShippingCard = () => {
   return (
     <div>
       <Card className="bg-[#EEFFFC]">
-        <CardContent className="flex items-center justify-between px-5 py-2 max-w-[80rem] mx-auto">
+        <CardContent className="flex sm:flex-row flex-col sm:items-center  justify-center sm:justify-between sm:px-5 px-8 py-2 sm:max-w-[80rem] mx-auto">
           <div className="">
-            <div className="grid gap-2">
+            <div className="grid gap-2 py-5 sm:py-0">
               <Label className="garamond text-xl" htmlFor="shipping-mode">
                 Choose Shipping Mode
               </Label>
@@ -39,13 +39,13 @@ const ShippingCard = () => {
                 className="gap-4">
                 <Label
                   htmlFor="standard"
-                  className="flex items-center gap-2 cursor-pointer">
+                  className="flex items-center gap-2 my-3  sm:my-0 cursor-pointer">
                   <RadioGroupItem id="standard" value="standard" />
                   Door Step Delivery
                 </Label>
                 <Label
                   htmlFor="express"
-                  className="flex items-center gap-2 cursor-pointer">
+                  className="flex items-center gap-2 my-3  sm:my-0 cursor-pointer">
                   <RadioGroupItem id="express" value="express" />
                   Store Pick-up - Free
                 </Label>
@@ -53,10 +53,10 @@ const ShippingCard = () => {
             </div>
           </div>
           <div className="grid gap-4">
-            <div className="flex items-center gap-2 justify-between">
+            <div className="flex items-center gap-2 my-3  sm:my-0 justify-between">
               <p className="font-medium">Subtotal</p> <span>₦{totalPrice}</span>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center my-3  sm:my-0 justify-between">
               <span className="font-medium">Shipping</span>
               <span className="text-sm mx-4">
                 {shippingMode === "standard"
@@ -65,16 +65,16 @@ const ShippingCard = () => {
               </span>
             </div>
             <Separator />
-            <div className="flex items-center justify-between">
+            <div className="flex items-center my-3  sm:my-0 justify-between">
               <span className="font-medium">Total</span>
               <span>₦{totalPrice}</span>
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-end mr-24 gap-2">
+        <CardFooter className="flex sm:justify-end justify-center my-3  sm:my-0 sm:mr-24 gap-2">
           <Button
             onClick={handleProceedToCheckout}
-            className="bg-transparent hover:bg-transparent text-[#3A3A3A] border border-[#3A3A3A]">
+            className="bg-transparent hover:bg-transparent text-[#3A3A3A] rounded-none border border-[#3A3A3A]">
             Checkout
             <MemoFrontArrow className="h-4 w-4" />
           </Button>

@@ -53,7 +53,7 @@ const PaymentCard = () => {
           <Dialog>
             <DialogTrigger asChild>
               <Button className="bg-transparent gap-2 rounded-none hover:bg-transparent text-[#3A3A3A] border border-[#3A3A3A]">
-                Change shipping Address
+                Change Payment Method
                 <MemoEditIcon className="w-4 h-4" />
               </Button>
             </DialogTrigger>
