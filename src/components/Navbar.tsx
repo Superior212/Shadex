@@ -60,9 +60,7 @@ const NavBar = () => {
             <NavLink
               key={index}
               className={({ isActive }) =>
-                isActive
-                  ? "text-[#00A181]  mx-6"
-                  : "text-[#3A3A3A] mx-6"
+                isActive ? "text-[#00A181]  mx-6" : "text-[#3A3A3A] mx-6"
               }
               to={link.path}>
               {link.title}
@@ -77,7 +75,7 @@ const NavBar = () => {
               onClick={() => handleNavigation(icon.path)}>
               <img src={icon.icon} className="h-6 w-6" />
               {icon.title === "cart" && getTotalItems() > 0 && (
-                <div className=" flex items-center justify-center absolute top-[2.6rem] right-[9.3rem] text-center w-4 h-4 bg-red-500 text-white rounded-[50%] p-1 text-xs">
+                <div className=" flex items-center justify-center absolute top-[2rem] right-[3.7rem] text-center w-4 h-4 bg-red-500 text-white rounded-[50%] p-1 text-xs">
                   {getTotalItems()}
                 </div>
               )}
