@@ -1,7 +1,7 @@
 import MemoFrontArrow from "@/icons/FrontArrow";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Label } from "./ui/label";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { RadioGroup } from "./ui/radio-group";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import { useContext, useState } from "react";
@@ -10,7 +10,6 @@ import { ShopContextType } from "@/types";
 import CheckoutDialog from "./CheckoutDialog";
 
 const ShippingCard = () => {
-  // const navigate = useNavigate();
   const { getTotalCartAmount, shippingMode, setShippingMode } = useContext(
     ShopContext
   ) as ShopContextType;
@@ -23,6 +22,10 @@ const ShippingCard = () => {
     setIsDialogOpen(true);
   };
 
+  const handleShippingModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setShippingMode(event.target.value);
+  };
+
   return (
     <div>
       <Card className="bg-[#EEFFFC]">
@@ -33,30 +36,36 @@ const ShippingCard = () => {
                 Choose Shipping Mode
               </Label>
               <RadioGroup
-                id="shipping-mode"
                 value={shippingMode}
-                onValueChange={setShippingMode}
-                className="gap-4">
-                <Label
-                  htmlFor="standard"
-                  className="flex items-center gap-2 my-3  sm:my-0 cursor-pointer">
-                  <RadioGroupItem id="standard" value="standard" />
-                  Door Step Delivery
-                </Label>
-                <Label
-                  htmlFor="express"
-                  className="flex items-center gap-2 my-3  sm:my-0 cursor-pointer">
-                  <RadioGroupItem id="express" value="express" />
-                  Store Pick-up - Free
-                </Label>
+                onChange={handleShippingModeChange}>
+                <div className="flex items-center gap-2 my-3 sm:my-0 cursor-pointer">
+                  <input
+                    type="radio"
+                    id="standard"
+                    className="accent-[#00A181]"
+                    value="standard"
+                    checked={shippingMode === "standard"}
+                  />
+                  <Label htmlFor="standard">Door Step Delivery</Label>
+                </div>
+                <div className="flex items-center gap-2 my-3 sm:my-0 cursor-pointer">
+                  <input
+                    type="radio"
+                    id="express"
+                    className="accent-[#00A181]"
+                    value="express"
+                    checked={shippingMode === "express"}
+                  />
+                  <Label htmlFor="express">Store Pick-up - Free</Label>
+                </div>
               </RadioGroup>
             </div>
           </div>
           <div className="grid gap-4">
-            <div className="flex items-center gap-2 my-3  sm:my-0 justify-between">
+            <div className="flex items-center gap-2 my-3 sm:my-0 justify-between">
               <p className="font-medium">Subtotal</p> <span>₦{totalPrice}</span>
             </div>
-            <div className="flex items-center my-3  sm:my-0 justify-between">
+            <div className="flex items-center my-3 sm:my-0 justify-between">
               <span className="font-medium">Shipping</span>
               <span className="text-sm mx-4">
                 {shippingMode === "standard"
@@ -65,18 +74,17 @@ const ShippingCard = () => {
               </span>
             </div>
             <Separator />
-            <div className="flex items-center my-3  sm:my-0 justify-between">
+            <div className="flex items-center my-3 sm:my-0 justify-between">
               <span className="font-medium">Total</span>
               <span>₦{totalPrice}</span>
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex sm:justify-end justify-center my-3  sm:my-0 sm:mr-24 gap-2">
+        <CardFooter className="flex sm:justify-end justify-center my-3 sm:my-0 sm:mr-24 gap-2">
           <Button
             onClick={handleProceedToCheckout}
             className="bg-transparent hover:bg-transparent text-[#3A3A3A] rounded-none border border-[#3A3A3A]">
-            Checkout
-            <MemoFrontArrow className="h-4 w-4" />
+            Checkout <MemoFrontArrow className="h-4 w-4" />
           </Button>
         </CardFooter>
       </Card>

@@ -15,9 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
 
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import MemoLogo from "@/icons/Logo";
 import { Link } from "react-router-dom";
 import MemoBackArrow from "@/icons/BackArrow";
@@ -27,12 +25,28 @@ import MemoDeleteIcon from "@/icons/DeleteIcon";
 import MemoMoney from "@/icons/Money";
 import AddNewCardDialog from "./AddNewCardDialog";
 import { useState } from "react";
+import PayOnDeliveryDialog from "./PayOnDeliveryDialog";
 
 const PaymentCard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isPayOnDeliveryDialogOpen, setIsPayOnDeliveryDialogOpen] =
+    useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("debit-card");
 
   const handleChooseCard = () => {
     setIsDialogOpen(false);
+  };
+
+  const handlePaymentMethodChange = (method: string) => {
+    if (method === "pay-on-delivery") {
+      setIsDialogOpen(false);
+    }
+    setPaymentMethod(method);
+
+    // Open dialog for Pay on Delivery
+    if (method === "pay-on-delivery") {
+      setIsPayOnDeliveryDialogOpen(true);
+    }
   };
 
   return (
@@ -45,12 +59,34 @@ const PaymentCard = () => {
           </div>
           <main className="px-5 max-w-[80rem] mx-auto">
             <div className="mt-4 flex justify-between">
-              <h2 className="text-base font-[400] lato">Debit Card</h2>
+              <h2 className="text-base font-[400] lato">Payment Options</h2>
             </div>
             <div className="mt-4 flex justify-between">
               <div className="flex items-center gap-2">
-                <input type="checkbox" className="accent-[#00A181]" checked />
-                <p className="text-base lato">Kathryn Murphy</p>
+                <input
+                  type="radio"
+                  id="debit-card"
+                  name="payment-method"
+                  className="accent-[#00A181]"
+                  checked={paymentMethod === "debit-card"}
+                  onChange={() => handlePaymentMethodChange("debit-card")}
+                />
+                <label htmlFor="debit-card" className="text-base lato">
+                  Debit Card
+                </label>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  id="pay-on-delivery"
+                  name="payment-method"
+                  className="accent-[#00A181]"
+                  checked={paymentMethod === "pay-on-delivery"}
+                  onChange={() => handlePaymentMethodChange("pay-on-delivery")}
+                />
+                <label htmlFor="pay-on-delivery" className="text-base lato">
+                  Pay on Delivery
+                </label>
               </div>
             </div>
             <span className="lato font-[400]">**** **** **** 1234</span>
@@ -70,9 +106,9 @@ const PaymentCard = () => {
                   <div className="flex justify-center sm:justify-start">
                     <MemoLogo className="md:w-28 w-20 h-20 md:h-28" />
                   </div>
-                  <div className="flex  items-center justify-between ">
-                    <div className="w-full max-w-[22rem]   sm:max-w-md relative space-x-10 sm:space-x-20 flex justify-between items-center">
-                      <div className="sm:w-[67%] w-[73%] h-[2px] absolute sm:left-28 left-16  z-10 top-[0.3rem] bg-[#E3DFDF]" />
+                  <div className="flex items-center justify-between">
+                    <div className="w-full max-w-[22rem] sm:max-w-md relative space-x-10 sm:space-x-20 flex justify-between items-center">
+                      <div className="sm:w-[67%] w-[73%] h-[2px] absolute sm:left-28 left-16 z-10 top-[0.3rem] bg-[#E3DFDF]" />
                       <div className="flex flex-col items-center z-10">
                         <div className="flex items-center">
                           <div className="h-3 w-3 rounded-full bg-[#00A181]" />
@@ -84,7 +120,7 @@ const PaymentCard = () => {
                       </div>
                       <div className="flex flex-col items-center z-10">
                         <div className="flex items-center">
-                          <div className="h-3 w-3 rounded-full bg-[#E3DFDF]" />
+                          <div className="h-3 w-3 rounded-full bg-[#00A181]" />
                         </div>
                         <div className="text-sm font-medium text-[#3A3A3A] my-6">
                           Payment
@@ -102,7 +138,7 @@ const PaymentCard = () => {
                   </div>
                 </main>
                 <DialogTitle className="my-7 flex sm:flex-row flex-col items-center justify-between">
-                  <h1 className="garamond text-[#00A181]   text-2xl">
+                  <h1 className="garamond text-[#00A181] text-2xl">
                     Payment Method
                   </h1>
 
@@ -138,12 +174,12 @@ const PaymentCard = () => {
                             </p>
                             <p>***</p>
                           </div>
-                          <Button className="bg-transparent hover:bg-transparent ">
+                          <Button className="bg-transparent hover:bg-transparent">
                             <MemoDeleteIcon className="h-4 w-4" />
                             <span className="text-[#3A3A3A] ml-2">Delete</span>
                           </Button>
                         </div>
-                        <div className="flex space-x-12">
+                        <div className="flex space-x-12 my-3">
                           <Button
                             onClick={handleChooseCard}
                             className="border rounded-none bg-transparent hover:bg-transparent border-[#3A3A3A] text-[#3A3A3A]">
@@ -157,19 +193,23 @@ const PaymentCard = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-36">
+                    <div className="flex items-center space-x-36 my-6">
                       <div className="flex items-center gap-2">
-                        <RadioGroup className="flex items-center">
-                          <RadioGroupItem
-                            value="pay-on-delivery"
-                            id="pay-on-delivery"
-                          />
-                          <Label
-                            htmlFor="pay-on-delivery"
-                            className=" cursor-pointer  garamond font-[700] p-2 flex items-center gap-2 ">
-                            Pay on Delivery
-                          </Label>
-                        </RadioGroup>
+                        <input
+                          type="radio"
+                          id="pay-on-delivery-alt"
+                          name="payment-method-alt"
+                          className="accent-[#00A181]"
+                          checked={paymentMethod === "pay-on-delivery"}
+                          onChange={() =>
+                            handlePaymentMethodChange("pay-on-delivery")
+                          }
+                        />
+                        <label
+                          htmlFor="pay-on-delivery-alt"
+                          className="text-base lato">
+                          Pay on Delivery
+                        </label>
                       </div>
                       <MemoMoney className="h-8 w-8" />
                     </div>
@@ -180,6 +220,10 @@ const PaymentCard = () => {
           </Dialog>
         </CardFooter>
       </Card>
+      <PayOnDeliveryDialog
+        isOpen={isPayOnDeliveryDialogOpen}
+        onClose={() => setIsPayOnDeliveryDialogOpen(false)}
+      />
     </div>
   );
 };
