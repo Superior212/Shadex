@@ -1,11 +1,17 @@
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 import MemoLogo from "@/icons/Logo";
 import { Separator } from "./ui/separator";
 import { Card } from "./ui/card";
-import MemoSuccessCheck from "@/icons/SuccessCheck";
-import { Button } from "./ui/button";
-import { useNavigate } from "react-router-dom";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import MemoVisaCard from "@/icons/VisaCard";
+import { Label } from "./ui/label";
+import MemoMoney from "@/icons/Money";
 
 const CheckoutDialog = ({
   isOpen,
@@ -14,7 +20,6 @@ const CheckoutDialog = ({
   isOpen: boolean;
   onClose: () => void;
 }) => {
-  const navigate = useNavigate();
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-[390px] sm:max-w-[825px]">
@@ -44,7 +49,7 @@ const CheckoutDialog = ({
                 </div>
                 <div className="flex flex-col items-center z-10">
                   <div className="flex items-center">
-                    <div className="h-3 w-3 rounded-full bg-[#00A181]" />
+                    <div className="h-3 w-3 rounded-full bg-[#E3DFDF]" />
                   </div>
                   <div className="text-sm font-medium text-[#3A3A3A] my-6">
                     Review
@@ -54,19 +59,48 @@ const CheckoutDialog = ({
             </div>
           </main>
           <Separator />
+          <DialogTitle className="my-7 flex sm:flex-row flex-col items-center justify-between">
+            <h1 className="garamond text-[#00A181] text-2xl">Payment Method</h1>
+          </DialogTitle>
         </DialogHeader>
         <main className="flex flex-col sm:flex-row items-center justify-between">
-          <Card className="w-full max-w-[100%] p-6 border-none flex flex-col gap-6">
-            <div className="flex items-center justify-center flex-col">
-              <MemoSuccessCheck className="sm:w-60 sm:h-60 " />
-              <h3 className="garamond font-[700] text-2xl mb-8">
-                Your Order is Successful
+          <Card className="w-full max-w-lg p-6 border-none flex flex-col gap-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="flex items-center space-x-40">
+                  <div className="flex items-center space-x-4">
+                    <RadioGroup defaultValue="hhhh">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="www" id="ww" />
+                      </div>
+                    </RadioGroup>
+
+                    <div className="garamond">Card</div>
+                  </div>
+                  <MemoVisaCard className="h-16 w-16" />
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-36">
+              <div className="flex items-center gap-2">
+                <RadioGroup className="flex items-center">
+                  <RadioGroupItem
+                    value="pay-on-delivery"
+                    id="pay-on-delivery"
+                  />
+                  <Label
+                    htmlFor="pay-on-delivery"
+                    className=" cursor-pointer  garamond font-[700] p-2 flex items-center gap-2 ">
+                    Pay on Delivery
+                  </Label>
+                </RadioGroup>
+              </div>
+              <MemoMoney className="h-8 w-8" />
+            </div>
+            <div>
+              <h3 className="lato font-[400] text-sm">
+                Payment made with card or bank transfer during delivery
               </h3>
-              <Button
-                onClick={() => navigate("/")}
-                className="bg-transparent hover:bg-transparent border rounded-none my-4 border-[#3A3A3A] text-[#3A3A3A]">
-                Back To Home
-              </Button>
             </div>
           </Card>
         </main>
