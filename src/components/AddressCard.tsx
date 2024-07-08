@@ -15,8 +15,10 @@ import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Badge } from "./ui/badge";
 import MemoDeleteIcon from "@/icons/DeleteIcon";
 import AddNewAddressDialog from "./AddNewAddressDialog";
+import { useNavigate } from "react-router-dom";
 
 const AddressCard = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <Card className="bg-[#EEFFFC]">
@@ -174,7 +176,9 @@ const AddressCard = () => {
                         <MemoEditIcon className="w-8 h-8" />
                         <span className="ml-1">Edit</span>
                       </Button>
-                      <Button className="bg-transparent hover:bg-transparent text-[#3A3A3A]">
+                      <Button
+                        onClick={() => navigate("/review")}
+                        className="bg-transparent hover:bg-transparent text-[#3A3A3A]">
                         <MemoDeleteIcon className="w-4 h-4" />
                         <span className="ml-1">Delete</span>
                       </Button>

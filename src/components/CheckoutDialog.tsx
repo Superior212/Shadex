@@ -58,8 +58,8 @@ const CheckoutDialog = ({
         <main className="flex flex-col sm:flex-row items-center justify-between">
           <Card className="w-full max-w-[100%] p-6 border-none flex flex-col gap-6">
             <div className="flex items-center justify-center flex-col">
-              <MemoSuccessCheck className="sm:w-60 sm:h-60 " />
-              <h3 className="garamond font-[700] text-2xl mb-8">
+              <MemoSuccessCheck className="sm:w-60 w-40 h-40 sm:h-60 " />
+              <h3 className="garamond font-[700] text-xl sm:text-2xl mb-8">
                 Your Order is Successful
               </h3>
               <Button

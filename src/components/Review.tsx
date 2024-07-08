@@ -120,7 +120,7 @@ export default function Review() {
             {cart.map((item) => {
               if (cartItems[item.id] !== 0) {
                 return (
-                  <Card key={item.id} className="mb-4">
+                  <Card key={item.id} className="mb-4 p-2 py-3">
                     <CardContent className="flex flex-col">
                       <div className="flex items-center space-x-3">
                         <img
@@ -131,14 +131,16 @@ export default function Review() {
                           className="aspect-square rounded-md object-cover"
                         />
                         <div>
-                          <p className="font-bold">{item.name}</p>
-                          <span>
+                          <p className="font-[700] text-xl garamond my-2">
+                            {item.name}
+                          </p>
+                          <span className="lato text-base font-[400]">
                             Colour: {item.color} // Material: {item.material}
                           </span>
                         </div>
                       </div>
                       <div className="mt-2">
-                        <p className="font-bold">₦ {item.price}</p>
+                        <p className="font-bold my-2 lato">₦ {item.price}</p>
                       </div>
                       <div className="flex items-center gap-2 mt-2">
                         <Button variant="outline" size="icon">
@@ -156,7 +158,9 @@ export default function Review() {
                         </Button>
                       </div>
                       <div className="mt-2">
-                        <p>Total: ₦ {item.price * cartItems[item.id]}</p>
+                        <p className="my-2 font-[400] text-base  lato">
+                          Total: ₦ {item.price * cartItems[item.id]}
+                        </p>
                       </div>
                     </CardContent>
                   </Card>
