@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
 
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import MemoBackArrow from "@/icons/BackArrow";
 import { Link } from "react-router-dom";
 import MemoLogo from "@/icons/Logo";
@@ -18,8 +18,13 @@ import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import MemoPlus from "@/icons/Plus";
 
 const AddNewCardDialog = ({ children }: { children: ReactNode }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleNewCard = () => {
+    setIsDialogOpen(false);
+  };
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-[390px] sm:max-w-[825px]">
         <DialogHeader>
@@ -140,7 +145,9 @@ const AddNewCardDialog = ({ children }: { children: ReactNode }) => {
                   </Label>
                 </RadioGroup>
               </div>
-              <Button className="bg-transparent hover:bg-transparent border border-[#3A3A3A] text-[#3A3A3A] rounded-none mt-4">
+              <Button
+                onClick={handleNewCard}
+                className="bg-transparent hover:bg-transparent border border-[#3A3A3A] text-[#3A3A3A] rounded-none mt-4">
                 <MemoPlus className="w-4 h-4" />
                 Add New Card
               </Button>

@@ -26,8 +26,15 @@ import { Badge } from "./ui/badge";
 import MemoDeleteIcon from "@/icons/DeleteIcon";
 import MemoMoney from "@/icons/Money";
 import AddNewCardDialog from "./AddNewCardDialog";
+import { useState } from "react";
 
 const PaymentCard = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleChooseCard = () => {
+    setIsDialogOpen(false);
+  };
+
   return (
     <div>
       <Card className="bg-[#EEFFFC]">
@@ -50,7 +57,7 @@ const PaymentCard = () => {
           </main>
         </CardContent>
         <CardFooter className="flex gap-2">
-          <Dialog>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button className="bg-transparent gap-2 rounded-none hover:bg-transparent text-[#3A3A3A] border border-[#3A3A3A]">
                 Change Payment Method
@@ -137,7 +144,9 @@ const PaymentCard = () => {
                           </Button>
                         </div>
                         <div className="flex space-x-12">
-                          <Button className="border rounded-none bg-transparent hover:bg-transparent border-[#3A3A3A] text-[#3A3A3A]">
+                          <Button
+                            onClick={handleChooseCard}
+                            className="border rounded-none bg-transparent hover:bg-transparent border-[#3A3A3A] text-[#3A3A3A]">
                             Select this Card
                           </Button>
                           <AddNewCardDialog>

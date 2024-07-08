@@ -1,3 +1,4 @@
+import { useState } from "react";
 import MemoEditIcon from "@/icons/EditIcon";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Separator } from "./ui/separator";
@@ -15,10 +16,14 @@ import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Badge } from "./ui/badge";
 import MemoDeleteIcon from "@/icons/DeleteIcon";
 import AddNewAddressDialog from "./AddNewAddressDialog";
-import { useNavigate } from "react-router-dom";
 
 const AddressCard = () => {
-  const navigate = useNavigate();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleChooseAddress = () => {
+    setIsDialogOpen(false);
+  };
+
   return (
     <div>
       <Card className="bg-[#EEFFFC]">
@@ -45,7 +50,7 @@ const AddressCard = () => {
           </main>
         </CardContent>
         <CardFooter className="flex gap-2">
-          <Dialog>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button className="bg-transparent gap-2 rounded-none hover:bg-transparent text-[#3A3A3A] border border-[#3A3A3A]">
                 Change Shipping Address
@@ -138,7 +143,9 @@ const AddressCard = () => {
                         <span className="ml-1">Delete</span>
                       </Button>
                     </div>
-                    <Button className="border bg-transparent hover:bg-transparent text-[#3A3A3A]">
+                    <Button
+                      className="border bg-transparent hover:bg-transparent text-[#3A3A3A]"
+                      onClick={handleChooseAddress}>
                       Choose this address
                     </Button>
                   </div>
@@ -177,13 +184,15 @@ const AddressCard = () => {
                         <span className="ml-1">Edit</span>
                       </Button>
                       <Button
-                        onClick={() => navigate("/review")}
+                        onClick={handleChooseAddress}
                         className="bg-transparent hover:bg-transparent text-[#3A3A3A]">
                         <MemoDeleteIcon className="w-4 h-4" />
                         <span className="ml-1">Delete</span>
                       </Button>
                     </div>
-                    <Button className="border bg-transparent hover:bg-transparent text-[#3A3A3A]">
+                    <Button
+                      className="border bg-transparent hover:bg-transparent text-[#3A3A3A]"
+                      onClick={handleChooseAddress}>
                       Choose this address
                     </Button>
                   </div>
